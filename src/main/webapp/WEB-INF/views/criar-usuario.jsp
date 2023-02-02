@@ -8,23 +8,23 @@
 <html>
 <head>
 
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<title>Projeto COTI-INFORMÁTICA</title>
 
-<!-- CDN da folha de estilos CSS do bootstrap -->
-<link
+	<!-- CDN da folha de estilos CSS do bootstrap -->
+	<link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
 
-<style>
-label.error {
-	color: #df4759;
-}
-
-input.error {
-	border: 2px solid #df4759;
-}
-</style>
+	<style>
+	label.error {
+		color: #df4759;
+	}
+	
+	input.error {
+		border: 2px solid #df4759;
+	}
+	</style>
 
 </head>
 <body>
