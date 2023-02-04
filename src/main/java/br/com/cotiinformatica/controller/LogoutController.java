@@ -12,7 +12,7 @@ public class LogoutController {
 	@RequestMapping(value = "/logout")
 	public ModelAndView logout(HttpServletRequest request) {
 
-		// apagando os dados do usuário gravadi em sessão
+		// apagando os dados do usuário gravado em sessão
 		request.getSession().removeAttribute("usuario");
 
 		// redirecionar para apágina de autenticação
@@ -20,5 +20,4 @@ public class LogoutController {
 		return modelAndView;
 
 	}
-
 }
