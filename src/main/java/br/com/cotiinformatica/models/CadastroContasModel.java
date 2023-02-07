@@ -1,8 +1,5 @@
-package br.com.cotiinformatica.entities;
+package br.com.cotiinformatica.models;
 
-import java.util.Date;
-
-import br.com.cotiinformatica.enums.TipoConta;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,14 +11,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Conta {
 
-	private Integer idConta;
+public class CadastroContasModel {
+
 	private String nome;
-	private Double valor;
-	private Date data;
-	private TipoConta tipo;
+	private String valor;
+	private String data;
+	private String tipo;
 	private String observacoes;
-	private Usuario usuario;
 
 }
