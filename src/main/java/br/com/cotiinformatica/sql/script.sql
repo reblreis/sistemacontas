@@ -5,7 +5,6 @@ create table usuario(
 	senha 		varchar(50) 	not null
 );
 
-
 create table conta(
 	idconta 		serial 			primary key,
 	nome 			varchar(150) 	not null,
