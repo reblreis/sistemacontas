@@ -7,8 +7,9 @@
 <html>
 <head>
 
-<meta charset="ISO-8859-1">
-<title>Projeto COTI-INFORMÁTICA</title>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width"/>
+	<title>Recuperar Senha</title>
 
 <!-- CDN da folha de estilos CSS do bootstrap -->
 <link

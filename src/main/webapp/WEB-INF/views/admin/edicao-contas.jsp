@@ -8,7 +8,8 @@
 <head>
 
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<meta name="viewport" content="width=device-width"/>
+	<title>Edição Contas</title>
 	
 	<!-- CDN da folha de estilos CSS do bootstrap -->
 	<link

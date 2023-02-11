@@ -1,7 +1,9 @@
 package br.com.cotiinformatica.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,12 +26,35 @@ public class ConsultaContasController {
 	private ContaRepository contaRepository;
 
 	@RequestMapping(value = "/admin/consulta-contas")
-	public ModelAndView cadastroContas() {
+	public ModelAndView cadastroContas(HttpServletRequest request) {
 
 		// WEB-INF/views/admin/cadastro-contas.jsp MÉTODO PARA ABRIR A PÁGINA
 		ModelAndView modelAndView = new ModelAndView("admin/consulta-contas");
 
 		modelAndView.addObject("model", new ConsultaContasModel());
+
+		ConsultaContasModel model = new ConsultaContasModel();
+
+		try {
+
+			UsuarioDTO usuarioDto = (UsuarioDTO) request.getSession().getAttribute("usuario");
+
+			Calendar calendar = Calendar.getInstance();
+			Date dataIni = new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1)
+					.getTime();
+			Date dataFim = new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+					calendar.getActualMaximum(Calendar.DAY_OF_MONTH)).getTime();
+
+			model.setDataIni(new SimpleDateFormat("yyyy-MM-dd").format(dataIni));
+			model.setDataFim(new SimpleDateFormat("yyyy-MM-dd").format(dataFim));
+
+			List<Conta> contas = contaRepository.findByUsuarioAndData(usuarioDto.getIdUsuario(), dataIni, dataFim);
+			modelAndView.addObject("contas", contas);
+		} catch (Exception e) {
+			modelAndView.addObject("mensagem", "Falha ao consultar contas: " + e.getMessage());
+		}
+
+		modelAndView.addObject("model", model);
 
 		return modelAndView;
 	}
@@ -41,17 +66,7 @@ public class ConsultaContasController {
 
 		try {
 
-			// capturar os dados do usuário gravado em sessão
-			UsuarioDTO usuarioDto = (UsuarioDTO) request.getSession().getAttribute("usuario");
-
-			// capturar as datas selecionadas no formulário
-			Date dataIni = new SimpleDateFormat("yyyy-MM-dd").parse(model.getDataIni());
-			Date dataFim = new SimpleDateFormat("yyyy-MM-dd").parse(model.getDataFim());
-
-			// consultar as contas do usuário no banco de dados
-			List<Conta> contas = contaRepository.findByUsuarioAndData(usuarioDto.getIdUsuario(), dataIni, dataFim);
-
-			// enviando a lista de contas para a página exibir
+			List<Conta> contas = obterConsultaDeContas(model, request);
 			modelAndView.addObject("contas", contas);
 		} catch (Exception e) {
 			modelAndView.addObject("mensagem", "Falha ao consultar contas: " + e.getMessage());
@@ -59,5 +74,18 @@ public class ConsultaContasController {
 
 		modelAndView.addObject("model", model);
 		return modelAndView;
+	}
+
+	private List<Conta> obterConsultaDeContas(ConsultaContasModel model, HttpServletRequest request) throws Exception {
+
+		// capturar os dados do usuário gravado em sessão
+		UsuarioDTO usuarioDto = (UsuarioDTO) request.getSession().getAttribute("usuario");
+
+		// capturar as datas selecionadas no formulário
+		Date dataIni = new SimpleDateFormat("yyyy-MM-dd").parse(model.getDataIni());
+		Date dataFim = new SimpleDateFormat("yyyy-MM-dd").parse(model.getDataFim());
+
+		// consultar as contas do usuário no banco de dados
+		return contaRepository.findByUsuarioAndData(usuarioDto.getIdUsuario(), dataIni, dataFim);
 	}
 }

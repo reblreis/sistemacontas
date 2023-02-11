@@ -7,8 +7,9 @@
 <html>
 <head>
 
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width"/>
+	<title>Dados Usuário</title>
 
 <!-- CDN da folha de estilos CSS do bootstrap -->
 <link
